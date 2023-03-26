@@ -7,6 +7,7 @@ import logging
 import asyncio
 
 import frazes as RU
+import vpncheck as checker
 
 from aiogram import Bot, Dispatcher, executor, types
 from aiogram.dispatcher import FSMContext
