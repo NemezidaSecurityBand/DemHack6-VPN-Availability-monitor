@@ -30,10 +30,13 @@ b2_RU = KeyboardButton(RU.bt_2_kw_main)
 b3_RU = KeyboardButton(RU.bt_3_kw_main)
 keyboard = ReplyKeyboardMarkup(resize_keyboard=True)  # one_time_keyboard=True чтоб прятать клавиатуру
 
+class Form(StatesGroup):
+    location = State()
+
 
 @dp.message_handler(Command("start"))
 @dp.message_handler(Text(RU.bt_3_kw_main))
-async def cmd_start(message: types.Message):
+async def cmd_start(message: types.Message, state: FSMContext) -> None:
     kb = [
         [
             types.KeyboardButton(text="Прислать геолокацию", request_location=True),
@@ -42,6 +45,7 @@ async def cmd_start(message: types.Message):
     ]
     keyboard = types.ReplyKeyboardMarkup(keyboard=kb)
 
+    await state.set_state(Form.location)
     await message.answer(RU.RuStartPhrases, reply_markup=keyboard, parse_mode="Markdown")
 
 
