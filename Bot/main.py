@@ -19,7 +19,9 @@ from aiogram.dispatcher.filters import Text, Command, RegexpCommandsFilter
 
 logging.basicConfig(level=logging.INFO)
 
-bot = Bot(token='6099531648:AAHb54wB_ToW_I4oI4bs6S0lMvcR7-23agM')
+config = toml.load(open("secrets.toml", 'r'))
+
+bot = Bot(token=config['key'])
 dp = Dispatcher(bot)
 
 # main keyboard
